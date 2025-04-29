@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ashbo Jabo - Make Your Journey Easy</title>
   <style>
-    /* General Reset */
     * {
       margin: 0;
       padding: 0;
@@ -18,7 +17,6 @@
       color: #fff;
     }
 
-    /* Header Styles */
     .header {
       background-color: #191a23;
       padding: 10px 20px;
@@ -30,7 +28,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
+      flex-wrap: wrap;
     }
 
     .logo {
@@ -41,26 +39,24 @@
     .logo-icon {
       width: 55px;
       height: 55px;
-      margin-right: 0;
     }
 
     .logo-text {
       font-size: 1.5rem;
       color: #b48e49;
+      margin-left: 5px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      position: relative;
+      gap: 15px;
     }
 
     .nav-links a {
       color: #fff7c4;
-      margin: 20px;
       text-decoration: none;
       font-weight: 500;
-      position: relative;
       transition: color 0.3s ease, transform 0.3s ease;
     }
 
@@ -79,12 +75,10 @@
     }
 
     .sign-up:hover {
-      color: #b48e49;
       background-color: #f8d295;
       transform: scale(1.1);
     }
 
-    /* Dropdown Menu Styles */
     .dropdown {
       position: relative;
     }
@@ -109,13 +103,11 @@
       display: block;
       padding: 5px;
       border-radius: 5px;
-      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     }
 
     .dropdown-content a:hover {
       color: #b48e49;
       background-color: #f8d295;
-      transform: scale(1.05);
     }
 
     .dropdown:hover .dropdown-content {
@@ -124,17 +116,19 @@
       transform: translateY(0);
     }
 
-    /* Hamburger Menu Styles */
     .hamburger {
       display: none;
-      background: none;
-      border: none;
-      font-size: 2rem;
-      color: #fff7c4;
+      flex-direction: column;
       cursor: pointer;
     }
 
-    /* Footer Styles */
+    .hamburger span {
+      background: #e0c06b;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+    }
+
     .footer {
       background-color: #000;
       padding: 40px 20px;
@@ -146,29 +140,28 @@
     .footer-content {
       display: flex;
       justify-content: space-around;
+      flex-wrap: wrap;
       width: 100%;
-      max-width: 900px;
+      max-width: 1000px;
       margin-bottom: 20px;
     }
 
     .footer-section {
       text-align: center;
+      margin: 10px;
     }
 
     .footer-section h3 {
-      text-align: center;
-      font-size: 1.2rem;
       color: #e0c06b;
+      font-size: 1.2rem;
       margin-bottom: 10px;
       text-transform: uppercase;
     }
 
     .footer-section a,
     .footer-section p {
-      text-align: center;
       color: #b3b3b3;
       font-size: 0.9rem;
-      margin: 5px 0;
       text-decoration: none;
     }
 
@@ -178,9 +171,11 @@
 
     .Download-App,
     .social-media {
-      align-items: center;
-      gap: 5px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
       margin-top: 10px;
+      flex-wrap: wrap;
     }
 
     .Download-App img,
@@ -190,46 +185,44 @@
     }
 
     .footer-bottom {
-      align-self: center;
       border-top: 1px solid #444;
       padding-top: 10px;
-      text-align: center;
     }
 
     .footer-bottom p {
-      text-align: center;
       color: #888;
       font-size: 0.8rem;
+      text-align: center;
     }
 
-    /* Responsive Styles */
     @media (max-width: 768px) {
-      /* Show hamburger and hide nav-links by default */
-      .hamburger {
-        display: block;
-      }
       .nav-links {
         display: none;
         flex-direction: column;
         width: 100%;
         background-color: #191a23;
         position: absolute;
-        top: 60px;
+        top: 65px;
         left: 0;
-        z-index: 999;
+        padding: 10px 0;
       }
-      .nav-links a {
-        margin: 10px 20px;
-      }
-      .nav-links.active {
+
+      .nav-links.show {
         display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .header-content {
+        flex-direction: row;
+        justify-content: space-between;
       }
     }
   </style>
 </head>
 <body>
-
-<!-- Header Section -->
 <header class="header">
   <div class="header-content">
     <div class="logo">
@@ -237,13 +230,21 @@
       <a href="{% url 'home' %}"><img src="{% static 'logo/ashbo_Jabo_Logo.jpg' %}" alt="Logo" class="logo-icon"></a>
       <span class="logo-text"><strong>Ashbo Jabo</strong></span>
     </div>
-    <nav class="nav-links">
+
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav class="nav-links" id="navLinks">
       <a href="{% url 'home' %}">Home</a>
       <a href="{% url 'popular_destination' %}">Popular Destinations</a>
       <a href="{% url 'about_us' %}">About us</a>
+
       {% if user.is_authenticated %}
         <span style="color:#fff7c4;">
-          Hello {{ user.username }}
+          Hello, {{ user.username }}
           {% if user.groups.exists %}
             (
             {% for group in user.groups.all %}
@@ -258,15 +259,12 @@
         <a href="{% url 'sign_up' %}" class="sign-up">Sign Up</a>
       {% endif %}
     </nav>
-    <button class="hamburger">&#9776;</button>
   </div>
 </header>
 
 {% block content %}
-
 {% endblock %}
 
-<!-- Footer Section -->
 <footer class="footer">
   <div class="footer-content">
     <div class="footer-section">
@@ -274,6 +272,7 @@
       <a href="#">About us</a><br>
       <a href="#">Booking</a>
     </div>
+
     <div class="footer-section">
       <h3>contact us</h3>
       <p>34h/Kha, Block-C</p>
@@ -281,13 +280,15 @@
       <p>0703169545</p>
       <p>contact@ashbo-jabo.tour</p>
     </div>
+
     <div class="footer-section">
       <h3>Download Our App</h3>
       <div class="Download-App">
-        <a href="#" target="_blank"><img src="https://img.icons8.com/color/48/000000/google-play.png"/></a>
-        <a href="#" target="_blank"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/mac-os.png"/></a>
+        <a href="#"><img src="https://img.icons8.com/color/48/000000/google-play.png"/></a>
+        <a href="#"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/mac-os.png"/></a>
       </div>
     </div>
+
     <div class="footer-section">
       <h3>follow us</h3>
       <div class="social-media">
@@ -298,18 +299,16 @@
       </div>
     </div>
   </div>
+
   <div class="footer-bottom">
-    <p>Ashbo Jabo © By team_ashbo_jabo 2025</p>
+    <p>Ashbo Jabo Â© By ashbo-jabo 2025</p>
   </div>
 </footer>
 
-<!-- JavaScript for Hamburger Toggle -->
 <script>
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
+  function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+  }
 </script>
 </body>
 </html>
