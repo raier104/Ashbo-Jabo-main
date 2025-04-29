@@ -17,6 +17,7 @@ Ashbo Jabo is an easy-to-use online ticket booking system built using the Django
 📅 View and manage bookings with ease
 
 🛠️ Technologies Used:
+
 Backend: Django (Python)
 
 Frontend: HTML, CSS, JavaScript, Bootstrap
