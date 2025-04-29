@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}  <!-- This line loads the static files -->
+
+{% block content %}
+<style>
+    .form-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: black;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .form-container h2 {
+        text-align: center;
+        color: #FFD700;
+        margin-bottom: 20px;
+    }
+
+    .form-container label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: white;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="number"],
+    .form-container input[type="file"],
+    .form-container select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #FFD700;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        font-size: 14px;
+    }
+
+    .form-container input:focus,
+    .form-container select:focus {
+        outline: none;
+        border-color: #FFC300;
+        box-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
+    }
+
+    .form-container input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #FFD700;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .form-container input[type="submit"]:hover {
+        background-color: #FFC300;
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.7);
+        transform: scale(1.05);
+    }
+
+    /* Card style */
+    .transport-option {
+        background-color: #222;
+        color: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .transport-option:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(255, 215, 0, 0.8);
+    }
+
+    .transport-option h3 {
+        color: #FFD700;
+    }
+
+    .transport-option p {
+        font-size: 14px;
+    }
+
+    .transport-option a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #FFD700;
+        color: black;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .transport-option a:hover {
+        background-color: #FFC300;
+    }
+       /* Header style */
+       h1 {
+        text-align: center;
+        color: #FFD700;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h1>Select Your Transport</h1>
+
+<div class="transport-options">
+    {% for transport in transports %}
+        <div class="transport-option">
+            <h3>{{ transport.company }} ({{ transport.get_transport_type_display }})</h3>
+            <p>Departure Time: {{ transport.departure_time }}</p>
+            <p>Price: {{ transport.price }} BDT</p>
+            <a href="{% url 'seat_selection' transport.id %}">Select</a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

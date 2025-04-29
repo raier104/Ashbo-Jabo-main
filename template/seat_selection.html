@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}  <!-- This line loads the static files -->
+
+{% block content %}
+<style>
+    /* Card style for Seat options */
+    .seat-option {
+        background-color: #222;
+        color: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .seat-option:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(255, 215, 0, 0.8);
+    }
+
+    .seat-option p {
+        font-size: 16px;
+    }
+
+    .seat-option a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #FFD700;
+        color: black;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .seat-option a:hover {
+        background-color: #FFC300;
+    }
+
+    .seat-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    /* Header style */
+    h1 {
+        text-align: center;
+        color: #FFD700;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h1>Select Your Seat</h1>
+
+<div class="seat-options">
+    {% for seat in seats %}
+        <div class="seat-option">
+            <p>Seat Number: {{ seat.seat_number }}</p>
+            {% if seat.is_booked %}
+                <p>Status: Booked</p>
+            {% else %}
+                <a href="{% url 'passenger_details' seat.id %}">Select this seat</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

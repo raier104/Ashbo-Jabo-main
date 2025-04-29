@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    /* Form container */
+    .container {
+        font-family: Work Sans, sans-serif;
+        background-color: #F1C40F;
+        width: 100%;
+        max-width: 400px;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 50px auto;
+    }
+
+    .container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: black;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        color: black;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .form-group input[type="date"] {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .form-group input:hover,
+    .form-group select:hover {
+        border-color: #FFD700;
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #FFD700;
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.9);
+    }
+
+    .form-group button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: navy;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1em;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .form-group button:hover {
+        background-color: #000000;
+        color: navy;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+        transform: scale(1.05);
+    }
+
+    .header-section {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .btn-custom {
+        background-color: #FFD700;
+        color: #000;
+    }
+</style>
+
+<!-- Booking Form -->
+<div class="container">
+    <h2>Book Your Ticket - Ashbo Jabo</h2>
+    <form method="POST" action="{% url 'book' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="from_location">From:</label>
+            <select id="from_location" name="from_location">
+                <option>Dhaka</option>
+                <option>Chittagong</option>
+                <option>Sylhet</option>
+                <option>Rajshahi</option>
+                <option>Khulna</option>
+                <option>Barishal</option>
+                <option>Rangpur</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="to_location">To:</label>
+            <select id="to_location" name="to_location">
+                <option>Dhaka</option>
+                <option>Chittagong</option>
+                <option>Sylhet</option>
+                <option>Rajshahi</option>
+                <option>Khulna</option>
+                <option>Barishal</option>
+                <option>Rangpur</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="mode_of_travel">Mode of Travel:</label>
+            <select id="mode_of_travel" name="mode_of_travel" required>
+                <option value="">Select Mode of Travel</option>
+                <option value="bus">Bus</option>
+                <option value="train">Train</option>
+                <option value="plane">Plane</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="departure_date">Departure Date:</label>
+            <input type="date" id="departure_date" name="departure_date" min="2025-04-28" required>
+        </div>
+        <div class="form-group">
+            <label for="number_of_passengers">Number of Passengers:</label>
+            <input type="number" id="number_of_passengers" name="number_of_passengers" min="1" value="1" required>
+        </div>
+        <div class="form-group">
+            <button type="submit">Next</button>
+        </div>
+        {% if form.errors %}
+            <div style="color:red;">{{ form.errors }}</div>
+        {% endif %}
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .receipt-container {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: black;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.8);
+        color: #FFD700;
+    }
+
+    .receipt-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .receipt-header img {
+        max-width: 50px; /* Ensure the logo is small */
+        max-height: 50px; /* Limit the height of the logo */
+        margin-right: 10px; /* Add spacing between the logo and the brand name */
+    }
+
+    .receipt-header .brand {
+        font-size: 18px;
+        font-weight: bold;
+        color: #FFD700;
+    }
+
+    .receipt-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #FFD700;
+    }
+
+    .receipt-details {
+        margin-bottom: 20px;
+    }
+
+    .receipt-details p {
+        margin: 5px 0;
+        font-size: 16px;
+        color: #FFD700;
+    }
+
+    .print-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #FFD700;
+        color: black;
+        text-align: center;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .print-button:hover {
+        background-color: #FFC300;
+    }
+
+    @media print {
+        body {
+            background-color: black;
+        }
+
+        .print-button {
+            display: none; /* Hide the print button during printing */
+        }
+
+        .receipt-container {
+            box-shadow: none;
+            border: none;
+        }
+    }
+</style>
+
+<div class="receipt-container" id="receipt">
+    <div class="receipt-header">
+        <img src="{% static 'logo/ashbo_Jabo_Logo.jpg' %}" alt="Logo"> <!-- Adjusted logo size -->
+        <span class="brand">Ashbo Jabo</span>
+    </div>
+    <div class="receipt-title">
+        Booking Receipt
+    </div>
+    <div class="receipt-details">
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Phone Number:</strong> {{ phone_number }}</p>
+        <p><strong>From:</strong> {{ from_location }}</p>
+        <p><strong>To:</strong> {{ to_location }}</p>
+        <p><strong>Seat Number:</strong> {{ seat_number }}</p>
+        <p><strong>Payment Amount:</strong> {{ amount_paid }}</p>
+        <p><strong>Mode of Travel:</strong> {{ mode_of_travel }}</p>
+    </div>
+    <button class="print-button" onclick="printReceipt()">Print Receipt</button>
+</div>
+
+<script>
+    function printReceipt() {
+        const receiptContent = document.getElementById('receipt').innerHTML;
+        const originalContent = document.body.innerHTML;
+
+        document.body.innerHTML = receiptContent;
+        window.print();
+        document.body.innerHTML = originalContent;
+    }
+</script>
+
+{% endblock %}

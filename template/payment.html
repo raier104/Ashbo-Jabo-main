@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}  <!-- This line loads the static files -->
+
+{% block content %}
+<style>
+    /* Card style for the form */
+    .form-container {
+        background-color: #222;
+        color: white;
+        padding: 30px;
+        margin: 50px auto;
+        width: 100%;
+        max-width: 500px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .form-container:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(255, 215, 0, 0.8);
+    }
+
+    .form-container h1 {
+        text-align: center;
+        color: #FFD700;
+        margin-bottom: 20px;
+    }
+
+    .form-container form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-container form button {
+        width: 100%;
+        padding: 10px;
+        background-color: #FFD700;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .form-container form button:hover {
+        background-color: #FFC300;
+    }
+
+    .form-container input,
+    .form-container select,
+    .form-container textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #FFD700;
+        border-radius: 5px;
+        background-color: #333;
+        color: white;
+        font-size: 14px;
+    }
+
+    .form-container input:focus,
+    .form-container select:focus,
+    .form-container textarea:focus {
+        outline: none;
+        border-color: #FFC300;
+        box-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
+    }
+
+    .form-container label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: white;
+    }
+
+    /* Responsive design for the form */
+    @media (max-width: 600px) {
+        .form-container {
+            padding: 20px;
+            max-width: 90%;
+        }
+    }
+</style>
+
+<div class="form-container">
+    <h1>Payment Method</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Proceed to Payment</button>
+    </form>
+</div>
+
+{% endblock %}
