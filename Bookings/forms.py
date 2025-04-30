@@ -55,7 +55,7 @@ class PassengerDetailsForm(forms.Form):
 
 # Payment Form with additional fields for transaction ID
 class PaymentForm(forms.ModelForm):
-    amount_paid = forms.DecimalField(max_digits=10, decimal_places=2, required=True, label="Amount Paid")  # Restore this field
+    amount_paid = forms.DecimalField(max_digits=10, decimal_places=2, required=True,min_value=0, label="Amount Paid")  # Restore this field
     transaction_id = forms.CharField(max_length=50, required=True, label="Transaction ID")
 
     class Meta:
