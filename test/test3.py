@@ -94,9 +94,48 @@ def main():
         time.sleep(2)
         wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@class='form-group']/button[text()='Next']"))).click()
         time.sleep(2)
-        #o
+        
+        wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Book Bus"))).click()
+        time.sleep(2)
+        wait.until(EC.presence_of_element_located((By.XPATH, "//h2[contains(text(),'Book Your Ticket')]")))
+        time.sleep(2)
 
+        Select(driver.find_element(By.ID, "from_location")).select_by_index(FROM_INDEX)
+        time.sleep(2)
+        Select(driver.find_element(By.ID, "to_location")).select_by_index(TO_INDEX)
+        time.sleep(2)
+        Select(driver.find_element(By.ID, "mode_of_travel")).select_by_index(MODE_INDEX)
+        time.sleep(2)
+        dep = driver.find_element(By.ID, "departure_date"); dep.clear(); dep.send_keys(DEPART_DATE)
+        time.sleep(2)
+        pax = driver.find_element(By.ID, "number_of_passengers"); pax.clear(); pax.send_keys(PAX_COUNT)
+        time.sleep(2)
+        wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@class='form-group']/button[text()='Next']"))).click()
+        time.sleep(2)
 
+        wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".transport-option a")))
+        time.sleep(2)
+        transport_links = driver.find_elements(By.CSS_SELECTOR, ".transport-option a")
+        time.sleep(2)
+        for i in range(len(transport_links)):
+            transport_links = driver.find_elements(By.CSS_SELECTOR, ".transport-option a")
+            time.sleep(2)
+            transport_links[i].click()
+            time.sleep(2)
+
+            wait.until(EC.presence_of_element_located((By.TAG_NAME, "h1")))
+            time.sleep(2)
+            seats = driver.find_elements(By.CSS_SELECTOR, ".seat-option a")
+            time.sleep(2)
+            if seats:
+                seats[0].click()
+                break
+            driver.back()
+            wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".transport-option a")))
+        else:
+            raise Exception("No available seats on any transport option")
+
+        #n
 
 
     finally:
