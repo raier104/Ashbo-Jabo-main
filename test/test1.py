@@ -8,17 +8,31 @@ driver = webdriver.Chrome()
 # Open your Django site
 driver.get("http://127.0.0.1:8000/")
 
-# Wait a bit to load (better to use WebDriverWait later)
+# Let the page load
 time.sleep(2)
 
-# Example: Click a link
+# Login
 driver.find_element(By.LINK_TEXT, "Login").click()
-
-# Example: Fill a login form
-driver.find_element(By.NAME, "username").send_keys("tausif112")
-driver.find_element(By.NAME, "password").send_keys("sadman106")
+time.sleep(1)
+driver.find_element(By.NAME, "username").send_keys("ovi")
+driver.find_element(By.NAME, "password").send_keys("ovi")
 driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+time.sleep(2)
 
-# Wait and then close
-time.sleep(10)
+# Navigate to Bookings
+driver.find_element(By.LINK_TEXT, "Booking").click()
+print("Visited Bookings page")
+time.sleep(2)
+
+# Navigate to Popular Destinations
+driver.find_element(By.LINK_TEXT, "Popular Destinations").click()
+print("Visited Popular Destinations page")
+time.sleep(2)
+
+# Navigate to About Us
+driver.find_element(By.LINK_TEXT, "About us").click()
+print("Visited About Us page")
+time.sleep(2)
+
+# Close the browser
 driver.quit()
