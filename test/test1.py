@@ -48,5 +48,32 @@ time.sleep(2)
 driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 time.sleep(2)
 
+select_links = driver.find_elements(By.LINK_TEXT, "Select")
+if select_links:
+    select_links[0].click()
+    print("Clicked the first 'Select' link.")
+else:
+    print("No 'Select' link found.")
+time.sleep(2)
+
+select_links = driver.find_elements(By.LINK_TEXT, "Select this seat")
+if select_links:
+    select_links[0].click()
+    print("Clicked the first 'Select' link.")
+else:
+    print("No 'Select' link found.")
+time.sleep(5)
+
+driver.find_element(By.NAME, "Name").send_keys("ovi")
+time.sleep(2)
+driver.find_element(By.NAME, "Address").send_keys("Jigatola")
+time.sleep(2)
+driver.find_element(By.NAME, "Phone Number").send_keys("Bus")
+time.sleep(2)
+driver.find_element(By.NAME, "Gender").send_keys("Male")
+time.sleep(2)
+driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+time.sleep(2)
+
 #Close the browser
 driver.quit()
