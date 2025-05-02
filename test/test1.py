@@ -22,12 +22,12 @@ time.sleep(2)
 #Navigate to Popular Destinations
 driver.find_element(By.LINK_TEXT, "Popular Destinations").click()
 print("Visited Popular Destinations page")
-time.sleep(2)
+time.sleep(3)
 
 #Navigate to About Us
 driver.find_element(By.LINK_TEXT, "About us").click()
 print("Visited About Us page")
-time.sleep(2)
+time.sleep(3)
 
 #Navigate to Bookings
 driver.find_element(By.LINK_TEXT, "Booking").click()
