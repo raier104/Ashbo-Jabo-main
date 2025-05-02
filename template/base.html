@@ -245,7 +245,7 @@
 
       {% if user.is_authenticated %}
         <span style="color:#fff7c4;">
-          Hello, {{ user.username }}
+          Hello {{ user.username }}
           {% if user.groups.exists %}
             (
             {% for group in user.groups.all %}
