@@ -16,7 +16,7 @@ class SignUpTest(unittest.TestCase):
     def test_sign_up_redirect_to_home(self):
         driver = self.driver
         # Test data
-        username = "done104"
+        username = "done"
         email = "done104@gmail.com"
         password = "123done123"
         confirm_password = "123done123"
@@ -27,26 +27,26 @@ class SignUpTest(unittest.TestCase):
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
-        time.sleep(5)  # Wait to visualize the page load
+        time.sleep(3)  # Wait to visualize the page load
 
         # Click the signup link in the navbar
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.LINK_TEXT, "Sign Up"))
         ).click()
-        time.sleep(5)  
+        time.sleep(3)
 
         # Fill out the signup form
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME, "username"))
         )
         driver.find_element(By.NAME, "username").send_keys(username)
-        time.sleep(5)
+        time.sleep(2)
         driver.find_element(By.NAME, "email").send_keys(email)
-        time.sleep(5)
+        time.sleep(2)
         driver.find_element(By.NAME, "password1").send_keys(password)
-        time.sleep(5)
+        time.sleep(2)
         driver.find_element(By.NAME, "password2").send_keys(confirm_password)
-        time.sleep(5)
+        time.sleep(2)
         role_dropdown = Select(driver.find_element(By.NAME, "role"))
         role_dropdown.select_by_value(role)
 
