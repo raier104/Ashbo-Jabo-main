@@ -12,11 +12,11 @@ def main():
     LOGIN_URL  = f"{BASE_URL}/log_in/"
 
 
-    USERNAME   = "user5"
+    USERNAME   = "ashbojabo"
 
-    EMAIL      = "tausif1234@gmail.com"
+    EMAIL      = "ashbojabo@gmail.com"
 
-    PASSWORD   = "sadman00700"
+    PASSWORD   = "123ashbo123"
 
     ROLE       = "user"
 
@@ -38,7 +38,6 @@ def main():
 
     TXN_ID  = "TXN20250502"
 
-
     driver = webdriver.Chrome()
     driver.maximize_window()
     wait = WebDriverWait(driver, 15)
@@ -57,10 +56,8 @@ def main():
         wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit']"))).click()
         time.sleep(2)
 
-
         wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Logout"))).click()
         time.sleep(2)
-
 
         driver.get(LOGIN_URL)
         wait.until(EC.presence_of_element_located((By.NAME, "username"))).send_keys(USERNAME)
@@ -81,11 +78,6 @@ def main():
         driver.get(BASE_URL)
         time.sleep(2)
 
-
-
-
-
-        
         wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Book Bus"))).click()
         time.sleep(2)
         wait.until(EC.presence_of_element_located((By.XPATH, "//h2[contains(text(),'Book Your Ticket')]")))
@@ -128,9 +120,9 @@ def main():
             raise Exception("No available seats on any transport option")
         time.sleep(2)
 
-        wait.until(EC.presence_of_element_located((By.NAME, "name"))).send_keys("John Doe")
+        wait.until(EC.presence_of_element_located((By.NAME, "name"))).send_keys("Ashbo Jabo")
         time.sleep(2)
-        driver.find_element(By.NAME, "address").send_keys("123 Test Street")
+        driver.find_element(By.NAME, "address").send_keys("74/A, Green Road")
         time.sleep(2)
         driver.find_element(By.NAME, "phone_number").send_keys("0123456789")
         time.sleep(2)
