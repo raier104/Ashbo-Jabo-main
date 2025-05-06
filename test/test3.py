@@ -12,9 +12,9 @@ def main():
     LOGIN_URL  = f"{BASE_URL}/log_in/"
 
 
-    USERNAME   = "ashbojabo"
+    USERNAME   = "ashbojabo1"
 
-    EMAIL      = "ashbojabo@gmail.com"
+    EMAIL      = "ashbojabo1@gmail.com"
 
     PASSWORD   = "123ashbo123"
 

@@ -156,15 +156,19 @@
                     <a href="{% url 'update_popular_destination' pd.booking_id %}" class="half-button">Update</a>
                     <a href="{% url 'delete_popular_destination' pd.booking_id %}" class="half-button">Delete</a>
                 </div>
-                <div class="center-button-container">
-                    <a href="{% url 'add_popular_destination' %}" class="add-destination-btn">Add Popular Destination</a>
-                </div>
+                
                 {% endif %}
                 {% endif %}
+                
             </div>
         </div>
+        
     </div>
     {% endfor %}
+    
+</div>
+<div class="center-button-container">
+    <a href="{% url 'add_popular_destination' %}" class="add-destination-btn">Add Popular Destination</a>
 </div>
 
 

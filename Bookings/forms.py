@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from datetime import date
 from .models import *
 
 # Custom User Creation Form with Role
@@ -28,9 +29,13 @@ class PopularDestinationForm(ModelForm):
         model = PopularDestination
         fields = '__all__'
 
-# Updated Booking Form with additional fields
 class BookingForm(forms.ModelForm):
-    departure_date = forms.DateField(required=True, widget=forms.SelectDateWidget(years=range(2025, 2125)))
+    departure_date = forms.DateField(
+        required=True,
+        widget=forms.SelectDateWidget(years=range(date.today().year, 2125)),
+        initial=date.today,
+        help_text="Please select a date from today onwards."
+    )
     number_of_passengers = forms.IntegerField(min_value=1, initial=1, required=True)
     MODE_OF_TRAVEL_CHOICES = [
         ('bus', 'Bus'),
@@ -42,6 +47,12 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ['departure_date', 'number_of_passengers', 'mode_of_travel', 'from_location', 'to_location']
+
+    def clean_departure_date(self):
+        departure_date = self.cleaned_data.get('departure_date')
+        if departure_date < date.today():
+            raise forms.ValidationError("The departure date cannot be in the past.")
+        return departure_date
 
 class PassengerDetailsForm(forms.Form):
     name = forms.CharField(max_length=100, required=True, label="Name")
